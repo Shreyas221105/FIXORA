@@ -103,6 +103,7 @@ function Services() {
 />
 
 <ServiceCard
+
   image="https://cdn-icons-png.flaticon.com/512/1828/1828919.png"
   title="Painting"
   description="Professional wall painting services."

@@ -30,7 +30,14 @@ function ServiceCard(props) {
   };
 
   return (
-    <div style={cardStyle}>
+    <div style={cardStyle}  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-10px)";
+                    e.currentTarget.style.backgroundColor = "#dbeafe";
+                }}
+                onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.backgroundColor = "white";
+                }}>
 
       {/* IMAGE */}
       <img
