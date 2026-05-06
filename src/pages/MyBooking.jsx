@@ -1,209 +1,117 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-function MyBooking() {
+function MyBookings() {
 
-  /* PAGE STYLE */
-  const pageStyle = {
-    minHeight: "100vh",
-    backgroundColor: "#f3f4f6",
-    padding: "50px 30px",
+  const [bookings, setBookings] = useState([]);
+
+  // LOAD BOOKINGS
+  useEffect(() => {
+
+    const savedBookings =
+      JSON.parse(localStorage.getItem("bookings")) || [];
+
+    setBookings(savedBookings);
+
+  }, []);
+
+  // CANCEL BOOKING
+  const cancelBooking = (id) => {
+
+    const updatedBookings =
+      bookings.filter((item) => item.id !== id);
+
+    setBookings(updatedBookings);
+
+    localStorage.setItem(
+      "bookings",
+      JSON.stringify(updatedBookings)
+    );
+
   };
 
-  /* TITLE */
-  const titleStyle = {
-    textAlign: "center",
-    fontSize: "40px",
-    marginBottom: "40px",
-  };
+  // VIEW DETAILS
+  const viewDetails = (booking) => {
 
-  /* GRID */
-  const gridStyle = {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-    gap: "25px",
-  };
+    alert(
+      `Service: ${booking.service}
+Date: ${booking.date}
+Status: ${booking.status}`
+    );
 
-  /* CARD */
-  const cardStyle = {
-    backgroundColor: "white",
-    padding: "25px",
-    borderRadius: "12px",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-  };
-
-  /* STATUS */
-  const statusStyle = {
-    color: "green",
-    fontWeight: "bold",
-    marginTop: "10px",
-  };
-
-  /* BUTTONS CONTAINER */
-  const buttonContainer = {
-    display: "flex",
-    gap: "10px",
-    marginTop: "20px",
-  };
-
-  /* BUTTON */
-  const buttonStyle = {
-    padding: "10px 15px",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
-    color: "white",
   };
 
   return (
-    <div style={pageStyle}>
 
-      {/* TITLE */}
-      <h1 style={titleStyle}>
+    <div className="min-h-screen bg-gray-100 p-10">
+
+      <h1 className="text-4xl font-bold text-center mb-10">
         My Bookings
       </h1>
 
-      {/* BOOKINGS GRID */}
-      <div style={gridStyle}>
+      {
+        bookings.length === 0 ? (
 
-        {/* BOOKING CARD 1 */}
-        <div style={cardStyle}>
-
-          <h2>⚡ Electrician Service</h2>
-
-          <p>
-            <strong>Name:</strong> Ahmad
+          <p className="text-center text-gray-600">
+            No bookings found.
           </p>
 
-          <p>
-            <strong>Date:</strong> 10 May 2026
-          </p>
+        ) : (
 
-          <p>
-            <strong>Address:</strong> J&k, Srinagar
-          </p>
+          <div className="grid gap-6">
 
-          <p style={statusStyle}>
-            ✅ Confirmed
-          </p>
+            {
+              bookings.map((booking) => (
 
-          <div style={buttonContainer}>
+                <div
+                  key={booking.id}
+                  className="bg-white p-6 rounded-xl shadow-md"
+                >
 
-            <button
-              style={{
-                ...buttonStyle,
-                backgroundColor: "#2563eb",
-              }}
-            >
-              View Details
-            </button>
+                  <h2 className="text-2xl font-semibold">
+                    {booking.service}
+                  </h2>
 
-            <button
-              style={{
-                ...buttonStyle,
-                backgroundColor: "#dc2626",
-              }}
-            >
-              Cancel Booking
-            </button>
+                  <p className="mt-2">
+                    📅 {booking.date}
+                  </p>
+
+                  <p className="mt-1">
+                    ✅ {booking.status}
+                  </p>
+
+                  <div className="flex gap-4 mt-5">
+
+                    {/* VIEW BUTTON */}
+                    <button
+                      onClick={() => viewDetails(booking)}
+                      className="bg-blue-600 text-white px-5 py-2 rounded-lg"
+                    >
+                      View Details
+                    </button>
+
+                    {/* CANCEL BUTTON */}
+                    <button
+                      onClick={() => cancelBooking(booking.id)}
+                      className="bg-red-600 text-white px-5 py-2 rounded-lg"
+                    >
+                      Cancel Booking
+                    </button>
+
+                  </div>
+
+                </div>
+
+              ))
+            }
 
           </div>
 
-        </div>
-
-        {/* BOOKING CARD 2 */}
-        <div style={cardStyle}>
-
-          <h2>🚰 Plumber Service</h2>
-
-          <p>
-            <strong>Name:</strong> Shreyas
-          </p>
-
-          <p>
-            <strong>Date:</strong> 14 May 2026
-          </p>
-
-          <p>
-            <strong>Address:</strong> Mumbai, Maharashtra
-          </p>
-
-          <p style={statusStyle}>
-            ✅ Confirmed
-          </p>
-
-          <div style={buttonContainer}>
-
-            <button
-              style={{
-                ...buttonStyle,
-                backgroundColor: "#2563eb",
-              }}
-            >
-              View Details
-            </button>
-
-            <button
-              style={{
-                ...buttonStyle,
-                backgroundColor: "#dc2626",
-              }}
-            >
-              Cancel Booking
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <div style={cardStyle}>
-
-          <h2>🚰 Plumber Service</h2>
-
-          <p>
-            <strong>Name:</strong> Aamir hamza
-          </p>
-
-          <p>
-            <strong>Date:</strong> 04 June 2026
-          </p>
-
-          <p>
-            <strong>Address:</strong> Delhi, India
-          </p>
-
-          <p style={statusStyle}>
-            ✅ Confirmed
-          </p>
-
-          <div style={buttonContainer}>
-
-            <button
-              style={{
-                ...buttonStyle,
-                backgroundColor: "#2563eb",
-              }}
-            >
-              View Details
-            </button>
-
-            <button
-              style={{
-                ...buttonStyle,
-                backgroundColor: "#dc2626",
-              }}
-            >
-              Cancel Booking
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
+        )
+      }
 
     </div>
+
   );
 }
 
-export default MyBooking;
+export default MyBookings;

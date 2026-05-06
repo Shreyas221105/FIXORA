@@ -2,69 +2,57 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "15px 40px",
-        backgroundColor: "#1e40af",
-        color: "white",
-      }}
-    >
 
-      {/* Logo */}
-      <div
-            style={{
-                display: "flex",
-                 alignItems: "center",
-                gap: "10px",
-             }}
+    <nav className="bg-blue-700 text-white px-5 md:px-10 py-4 flex flex-wrap justify-between items-center gap-4">
+
+      {/* LOGO */}
+      <div className="flex items-center gap-2">
+
+        <span className="text-3xl">
+          🛠️
+        </span>
+
+        <h2 className="text-2xl md:text-3xl font-bold">
+          Service<span className="text-yellow-400">Hub</span>
+        </h2>
+
+      </div>
+
+      {/* NAV LINKS */}
+      <div className="flex flex-wrap gap-4 md:gap-8 items-center text-sm md:text-lg">
+
+        <Link
+          to="/"
+          className="hover:text-yellow-300 transition duration-300"
         >
-
-    <span style={{ fontSize: "25px" }}>
-    🛠️
-    </span>
-
-    <h2
-            style={{
-                margin: 0,
-                fontSize: "25px",
-                fontWeight: "bold",
-                color: "white",
-            }}
-    >
-    Service<span style={{ color: "#facc15" }}>Hub</span>
-  </h2>
-
-
-</div>
-
-      {/* Links */}
-      <div
-        style={{
-          display: "flex",
-          gap: "30px",
-          alignItems: "center",
-        }}
-      >
-        <Link to="/" style={{ color: "white", textDecoration: "none" }}>
           Home
         </Link>
 
-        <Link to="/services" style={{ color: "white", textDecoration: "none" }}>
+        <Link
+          to="/services"
+          className="hover:text-yellow-300 transition duration-300"
+        >
           Services
         </Link>
 
-        <Link to="/booking" style={{ color: "white", textDecoration: "none" }}>
+        <Link
+          to="/booking"
+          className="hover:text-yellow-300 transition duration-300"
+        >
           Booking
         </Link>
 
-        <Link to="/mybookings" style={{ color: "white", textDecoration: "none" }}>
+        <Link
+          to="/mybookings"
+          className="hover:text-yellow-300 transition duration-300"
+        >
           My Bookings
         </Link>
+
       </div>
+
     </nav>
+
   );
 }
 
